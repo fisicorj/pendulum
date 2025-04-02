@@ -9,6 +9,30 @@ from matplotlib.colors import Normalize
 st.set_page_config(page_title="Pendulum Simulator", layout="wide")
 st.title("🎯 Interactive Simple Pendulum Simulator")
 
+# === Introduction and explanation ===
+st.markdown("""
+This simulator models the motion of a simple pendulum using numerical methods.
+
+The dynamics of the pendulum are governed by the following nonlinear second-order differential equation:
+
+\[
+\frac{d^2\theta}{dt^2} + \frac{g}{L} \sin(\theta) = 0
+\]
+
+Where:
+- \( \theta(t) \): angular displacement (radians)
+- \( g \): acceleration due to gravity (m/s²)
+- \( L \): length of the pendulum (m)
+
+We solve this equation numerically using the Runge-Kutta method (via `scipy.integrate.solve_ivp`) and compare it to the small-angle harmonic approximation:
+
+\[
+\theta(t) \approx \theta_0 \cos\left(\sqrt{\frac{g}{L}}t\right)
+\]
+
+You can interactively adjust parameters such as gravity, length, and initial conditions to observe their effects on the system.
+""")
+
 # === Sidebar parameters ===
 st.sidebar.header("Pendulum Parameters")
 g = st.sidebar.slider("Gravity (m/s²)", 1.0, 20.0, 9.81, 0.01)
