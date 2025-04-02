@@ -88,7 +88,11 @@ with col2:
 
 # === Animação do pêndulo ===
 with st.expander("🎥 Animação do Pêndulo"):
-    fig3, ax3 = plt.subplots(figsize=(5,5))
+    from matplotlib import animation
+    import tempfile
+
+    # Configuração do gráfico
+    fig3, ax3 = plt.subplots(figsize=(5, 5))
     ax3.set_xlim(-1.2*L, 1.2*L)
     ax3.set_ylim(-1.2*L, 0.2)
     ax3.set_aspect('equal')
@@ -111,7 +115,15 @@ with st.expander("🎥 Animação do Pêndulo"):
 
     ani = animation.FuncAnimation(fig3, update, frames=len(t_eval), init_func=init,
                                   interval=10, blit=True)
-    st.pyplot(fig3)
+
+    # Salvar como GIF temporário
+    tmpfile = BytesIO()
+    ani.save(tmpfile, format='gif', writer='pillow')
+    tmpfile.seek(0)
+
+    # Exibir no Streamlit
+    st.image(tmpfile, caption="Animação do Pêndulo", use_column_width=True)
+
 
 # === Download dos gráficos ===
 with st.expander("💾 Baixar gráficos"):
