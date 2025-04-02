@@ -12,26 +12,22 @@ st.title("🎯 Interactive Simple Pendulum Simulator")
 # === Introduction and explanation ===
 st.markdown("""
 This simulator models the motion of a simple pendulum using numerical methods.
-
-The dynamics of the pendulum are governed by the following nonlinear second-order differential equation:
-
-\[
-\frac{d^2\theta}{dt^2} + \frac{g}{L} \sin(\theta) = 0
-\]
-
-Where:
-- \( \theta(t) \): angular displacement (radians)
-- \( g \): acceleration due to gravity (m/s²)
-- \( L \): length of the pendulum (m)
-
-We solve this equation numerically using the Runge-Kutta method (via `scipy.integrate.solve_ivp`) and compare it to the small-angle harmonic approximation:
-
-\[
-\theta(t) \approx \theta_0 \cos\left(\sqrt{\frac{g}{L}}t\right)
-\]
-
-You can interactively adjust parameters such as gravity, length, and initial conditions to observe their effects on the system.
 """)
+
+st.markdown("The dynamics are governed by the nonlinear second-order differential equation:")
+st.latex(r"\frac{d^2\theta}{dt^2} + \frac{g}{L} \sin(\theta) = 0")
+
+st.markdown("Where:")
+st.markdown("- \( \theta(t) \): angular displacement (radians)")
+st.markdown("- \( g \): acceleration due to gravity (m/s²)")
+st.markdown("- \( L \): length of the pendulum (m)")
+
+st.markdown("We solve this equation numerically using the Runge-Kutta method via `scipy.integrate.solve_ivp`.")
+
+st.markdown("For small angles, we compare the solution to the harmonic approximation:")
+st.latex(r"\theta(t) \approx \theta_0 \cos\left(\sqrt{\frac{g}{L}}t\right)")
+
+st.markdown("Use the controls in the sidebar to adjust parameters and explore the behavior of the system.")
 
 # === Sidebar parameters ===
 st.sidebar.header("Pendulum Parameters")
