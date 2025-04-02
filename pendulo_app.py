@@ -50,8 +50,8 @@ with col1:
     ax1.set_ylabel('Angle θ (degrees)')
     ax1.set_title('θ(t)')
     ax1.grid(True)
-    ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5), frameon=True)
-    plt.tight_layout(rect=[0, 0, 0.85, 1])
+    ax1.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=2, frameon=True)
+    plt.tight_layout()
     st.pyplot(fig1)
     plt.close(fig1)
 
@@ -87,8 +87,8 @@ with col2:
     ax2.set_xlim(-180, 180)
     ax2.set_ylim(-360, 360)
     ax2.grid(True)
-    ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5), frameon=True)
-    plt.tight_layout(rect=[0, 0, 0.85, 1])
+    ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=2, frameon=True)
+    plt.tight_layout()
     st.pyplot(fig2)
     plt.close(fig2)
 
