@@ -6,6 +6,7 @@ from io import BytesIO
 from matplotlib.colors import Normalize
 import matplotlib.animation as animation
 from matplotlib.animation import PillowWriter
+import tempfile
 
 # === Page configuration ===
 st.set_page_config(page_title="Pendulum Simulator", layout="wide")
@@ -113,11 +114,11 @@ with st.expander("🎥 Pendulum Animation"):
     ani = animation.FuncAnimation(fig3, update, frames=len(t_eval), init_func=init,
                                   interval=10, blit=True)
 
-    tmpfile = BytesIO()
-    ani.save(tmpfile, writer=PillowWriter(fps=30))
-    tmpfile.seek(0)
-
-    st.image(tmpfile, caption="Pendulum Animation", use_column_width=True)
+    # Save to a temporary file and display
+    with tempfile.NamedTemporaryFile(suffix=".gif", delete=False) as tmpfile:
+        ani.save(tmpfile.name, writer=PillowWriter(fps=30))
+        tmpfile.seek(0)
+        st.image(tmpfile.name, caption="Pendulum Animation", use_column_width=True)
 
 # === Download charts ===
 with st.expander("💾 Download Charts"):
