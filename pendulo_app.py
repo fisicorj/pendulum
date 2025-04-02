@@ -4,9 +4,6 @@ from scipy.integrate import solve_ivp
 import streamlit as st
 from io import BytesIO
 from matplotlib.colors import Normalize
-import matplotlib.animation as animation
-from matplotlib.animation import PillowWriter
-import tempfile
 
 # === Page configuration ===
 st.set_page_config(page_title="Pendulum Simulator", layout="wide")
@@ -92,40 +89,6 @@ with col2:
     ax2.legend()
     st.pyplot(fig2)
     plt.close(fig2)
-
-# === Pendulum animation (on demand) ===
-with st.expander("🎥 Pendulum Animation"):
-    if st.button("Generate Animation") or "gif_ready" not in st.session_state:
-        fig3, ax3 = plt.subplots(figsize=(5, 5))
-        ax3.set_xlim(-1.2*L, 1.2*L)
-        ax3.set_ylim(-1.2*L, 0.2)
-        ax3.set_aspect('equal')
-        ax3.grid()
-
-        x = L * np.sin(theta)
-        y = -L * np.cos(theta)
-        line, = ax3.plot([], [], 'o-', lw=2)
-        time_text = ax3.text(0.05, 0.9, '', transform=ax3.transAxes)
-
-        def init():
-            line.set_data([], [])
-            time_text.set_text('')
-            return line, time_text
-
-        def update(frame):
-            line.set_data([0, x[frame]], [0, y[frame]])
-            time_text.set_text(f"t = {t_eval[frame]:.2f}s")
-            return line, time_text
-
-        ani = animation.FuncAnimation(fig3, update, frames=len(t_eval), init_func=init,
-                                      interval=10, blit=True)
-
-        with tempfile.NamedTemporaryFile(suffix=".gif", delete=False) as tmpfile:
-            ani.save(tmpfile.name, writer=PillowWriter(fps=30))
-            tmpfile.seek(0)
-            st.image(tmpfile.name, caption="Pendulum Animation", use_column_width=True)
-            st.session_state.gif_ready = True
-        plt.close(fig3)
 
 # === Download charts ===
 with st.expander("💾 Download Charts"):
