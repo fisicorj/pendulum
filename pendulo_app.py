@@ -50,7 +50,8 @@ with col1:
     ax1.set_ylabel('Angle θ (degrees)')
     ax1.set_title('θ(t)')
     ax1.grid(True)
-    ax1.legend()
+    ax1.legend(loc='upper right', frameon=True)
+    plt.tight_layout()
     st.pyplot(fig1)
     plt.close(fig1)
 
